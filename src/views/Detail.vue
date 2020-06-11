@@ -1,0 +1,147 @@
+<template>
+  <div class="p_content">
+    <div class="v_container">
+      <video-player  class="video-player vjs-custom-skin"
+        ref="videoPlayer" 
+        :playsinline="true" 
+        :options="playerOptions"
+      ></video-player>
+    </div>
+    <div class="desc">
+      肩部外展动作展示
+    </div>
+    <div class="code">
+      <div class="i_list">
+        <input type="number">
+        <input type="number">
+        <input type="number">
+        <input type="number">
+      </div>
+      <div class="c_tip">
+        请输入特权码
+        <i></i>
+      </div>
+    </div>
+    
+    <div class="returnUpload">上传评测视频</div>
+  </div>
+</template>
+
+<script>
+import {
+  showLoading
+} from '../utils/common'
+
+export default {
+  data(){
+    return {
+      playerOptions : {
+        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+        autoplay: false, //如果true,浏览器准备好时开始回放。
+        muted: false, // 默认情况下将会消除任何音频。
+        loop: false, // 导致视频一结束就重新开始。
+        preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+        language: 'zh-CN',
+        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+        sources: [{
+          type: "video/mp4",//这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
+          src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4' //url地址
+        }],
+        poster: "", //你的封面地址
+        // width: document.documentElement.clientWidth, //播放器宽度
+        notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        controlBar: {
+          timeDivider: true,
+          durationDisplay: true,
+          remainingTimeDisplay: false,
+          fullscreenToggle: true  //全屏按钮
+        }
+      }
+    }
+  },
+  mounted () {
+    // showLoading('上传中，请稍候');
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .p_content{
+    width: 7.14rem;
+    min-height: 8.63rem;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 0.06rem;
+    box-sizing: border-box;
+    padding: 0.3rem;
+    position: relative;
+    .v_container{
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+    .desc{
+      padding-top: 0.2rem;
+      font-size: 0.32rem;
+      color: #030303;
+    }
+    .returnUpload{
+      width: 90%;
+      height: 0.9rem;
+      line-height: 0.9rem;
+      background: #5BC5B3;
+      border-radius: 0.06rem;
+      text-align: center;
+      font-size: 0.32rem;
+      color: #FFFFFF;
+      position: absolute;
+      bottom: 0.3rem;
+      left: 5%;
+    }
+    .code{
+      width: 100%;
+      padding-top: 0.5rem;
+      .i_list{
+        display: flex;
+        justify-content: center;
+        input[type="number"]{
+          width: 0.8rem;
+          height: 0.6rem;
+          outline: 0;
+          border: none;
+          border-bottom: 0.02rem solid #E1E1E1;
+          margin-left: 0.15rem;
+          text-align: center;
+          &:first-child{
+            margin: 0;
+          }
+        }
+      }
+      .c_tip{
+        width: 2.44rem;
+        height: 0.68rem;
+        background: #EEEEEE;
+        border-radius: 0.34rem;
+        font-size: 0.28rem;
+        color: #838383;
+        text-align: center;
+        line-height: 0.68rem;
+        margin: 0.3rem auto 0;
+        position: relative;
+        i{
+          display: inline-block;
+          width: 0.2rem;
+          height: 0.2rem;
+          background: #EEEEEE;
+          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          position: absolute;
+          top: -0.06rem;
+          left: 50%;
+          margin-left: -0.11rem;
+        }
+      }
+      
+    }
+  }
+</style>
