@@ -22,14 +22,20 @@
         <i></i>
       </div>
     </div>
+    <div class="uploadBtn">
+      <span>上传评测视频</span>
+      <input class="uploadInput" accept="video/*" type="file" capture="camcorder" value="上传评测视频" @change.prevent="videoControl">
+    </div>
     
-    <div class="returnUpload">上传评测视频</div>
   </div>
 </template>
 
 <script>
 import {
-  showLoading
+  showLoading,
+  hideLoading,
+  showToast
+  // showAlertBox
 } from '../utils/common'
 
 export default {
@@ -60,8 +66,34 @@ export default {
       }
     }
   },
+  created () {
+    this.id = this.$route.params.id;
+  },
   mounted () {
     // showLoading('上传中，请稍候');
+    // showToast('上传成功')
+    // showAlertBox('1111')
+    console.log(this.$route.params.id)
+  },
+  methods: {
+    // 监听input的上传事件
+    videoControl(e){
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.uploadVideo(files[0]);
+    },
+    // 上传视频
+    uploadVideo(file){
+      showLoading('上传中，请稍候');
+      console.log(file)
+      setTimeout(() => {
+        hideLoading();
+        showToast('上传成功');
+        this.$router.push({
+          path: `/result/${this.id}`
+        })
+      }, 1000)
+    }
   }
 }
 </script>
@@ -85,7 +117,7 @@ export default {
       font-size: 0.32rem;
       color: #030303;
     }
-    .returnUpload{
+    .uploadBtn{
       width: 90%;
       height: 0.9rem;
       line-height: 0.9rem;
@@ -97,10 +129,19 @@ export default {
       position: absolute;
       bottom: 0.3rem;
       left: 5%;
+      position: relative;
+      .uploadInput{
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
     .code{
       width: 100%;
-      padding-top: 0.5rem;
+      padding: 0.5rem 0 1rem;
       .i_list{
         display: flex;
         justify-content: center;
@@ -112,6 +153,8 @@ export default {
           border-bottom: 0.02rem solid #E1E1E1;
           margin-left: 0.15rem;
           text-align: center;
+          font-weight: 700;
+          font-size: 0.4rem;
           &:first-child{
             margin: 0;
           }

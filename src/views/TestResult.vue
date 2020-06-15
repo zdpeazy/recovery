@@ -7,7 +7,21 @@
         :options="playerOptions"
       ></video-player>
     </div>
-    <div class="returnUpload" @click="handlerBackHome">返回首页查看评测结果</div>
+    <div class="testDetail">
+      <div class="title">
+        <span class="border"></span>
+        <span class="text">测评结果</span>
+      </div>
+      <div class="result">
+        <div class="left">
+          <span class="border"></span>
+        </div>
+        <div class="right">
+          <div class="title">轻度受限</div>
+          <div class="desc">XX关节正常活动范围是0-YY度，您的XX关节活动范围是0-ZZ度，评估结果为轻度受限。</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,18 +76,49 @@ export default {
       height: auto;
       margin: 0 auto;
     }
-    .returnUpload{
-      width: 90%;
-      height: 0.9rem;
-      line-height: 0.9rem;
-      background: #5BC5B3;
-      border-radius: 0.06rem;
-      text-align: center;
-      font-size: 0.32rem;
-      color: #FFFFFF;
-      position: absolute;
-      bottom: 0.3rem;
-      left: 5%;
+    .testDetail{
+      .title{
+        .border{
+          display: inline-block;
+          width: 0.07rem;
+          height: 0.28rem;
+          background: #FFC658;
+        }
+        .text{
+          padding-left: 0.2rem;
+          font-size: 0.28rem;
+          color: #707070;
+          position: relative;
+          top: -0.02rem;
+        }
+      }
+      .result{
+        display: flex;
+        margin-top: 0.45rem;
+        .left{
+          width: 0.27rem;
+          height: auto;
+          .border{
+            display: inline-block;
+            width: 0.01rem;
+            height: 100%;
+            background: #FFC658;
+          }
+        }
+        .right{
+          flex: 1;
+          .title{
+            font-size: 0.36rem;
+            color: #030303;
+          }
+          .desc{
+            padding-top: 0.15rem;
+            line-height: 0.3rem;
+            font-size: 0.26rem;
+            color: #030303;
+          }
+        }
+      }
     }
   }
 </style>

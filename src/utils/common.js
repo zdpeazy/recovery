@@ -72,11 +72,14 @@ let hideLoading = function () {
 }
 
 
-let showAlertBox = function (content, cb) {
+let showAlertBox = function (content, showCancel, sureText, cancelText, cb) {
   document.getElementById('alert-box').style.display = 'block'
-  document.getElementById('alert-title').innerHTML = '提示'
   document.getElementById('alert-content').innerHTML = content
-  document.getElementById('alert-sure').innerHTML = '确定'
+  document.getElementById('alert-sure').innerHTML = sureText || '确定'
+  document.getElementById('alert-cancel').innerHTML = cancelText || '取消'
+  if(!showCancel){
+    document.getElementById('alert-cancel').style.display = 'none';
+  }
   document.getElementById('alert-sure').onclick = function () {
     if (cb) {
       cb()

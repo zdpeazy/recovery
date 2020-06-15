@@ -19,7 +19,7 @@ html, body{
   min-height: 100%;
   background: #45B9A1;
   box-sizing: border-box;
-  padding-bottom: 0.3rem;
+  padding-bottom: 0.6rem;
   .banner{
     width: 100%;
     height: 3rem;

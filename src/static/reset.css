@@ -127,7 +127,7 @@ input, select {
 }
 .container-toast  span{
   display:inline-block;
-  padding:0.15rem 0.4rem;
+  padding:0.3rem 0.6rem;
   max-width: 6rem;
   background-color: rgba(0,0,0,0.7);
   border-radius:0.1rem;
@@ -157,7 +157,7 @@ input, select {
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 0.1rem;
     box-sizing: border-box;
     text-align: center;
@@ -340,13 +340,16 @@ input, select {
 #alert-content-bg{
   position: relative;
   width: 5.6rem;
-  height: 3rem;
+  height: 3.5rem;
   background-color: white;
   border-radius: 0.1rem;
   margin: 4rem auto;
   text-align: center;
   font-size: 0.28rem;
   border: 1px solid transparent;
+  box-sizing: border-box;
+  padding: 0 0.3rem;
+  line-height: 0.4rem;
 }
 #alert-title{
   margin-top: 0.2rem;
@@ -354,20 +357,32 @@ input, select {
   font-size: 0.36rem;
 }
 #alert-content{
-  margin-top: 0.3rem;
-  color: gray;
+  padding: 0.5rem 0;
+  height: 2.2rem;
+  font-size: 0.28rem;
+  color: #19191A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#alert-sure{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+.footer{
+  display: flex;
+  justify-content: space-between;
+}
+.footer p {
+  flex: 1;
   height: 0.9rem;
   line-height: 0.9rem;
-  font-size: 0.36rem;
-  color: #426ab3;
+  border-radius: 0.06rem;
+  font-size: 0.32rem;
+  color: #fff;
   letter-spacing: 0.05rem;
-  border-top: 1px solid gray;
+}
+#alert-sure{
+  background: #5BC5B3;
+}
+#alert-cancel{
+  background: #ED6D00;
 }
 
 .hide{

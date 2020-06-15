@@ -1,9 +1,9 @@
 <template>
   <div class="p_content">
     <div class="video_list">
-      <div class="item">
+      <div class="item" v-for="item in videoList" :key="item.id" @click="handlerLookTestResult(item)">
         <div class="left">
-          <img src="https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347" alt="">
+          <img :src="item.src" alt="">
         </div>
         <div class="right">
           <div class="title">
@@ -14,64 +14,49 @@
           </div>
         </div>
       </div>
-      <div class="item">
-        <div class="left">
-          <img src="https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347" alt="">
-        </div>
-        <div class="right">
-          <div class="title">
-            <span class="status">评估中</span>
-          </div>
-          <div class="r_b">
-            <span class="l_video">上传时间：2020.5.19</span>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="left">
-          <img src="https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347" alt="">
-        </div>
-        <div class="right">
-          <div class="title">
-            <span class="status">评估中</span>
-          </div>
-          <div class="r_b">
-            <span class="l_video">上传时间：2020.5.19</span>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="left">
-          <img src="https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347" alt="">
-        </div>
-        <div class="right">
-          <div class="title">
-            <span class="status">评估中</span>
-          </div>
-          <div class="r_b">
-            <span class="l_video">上传时间：2020.5.19</span>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="left">
-          <img src="https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347" alt="">
-        </div>
-        <div class="right">
-          <div class="title">
-            <span class="status">评估中</span>
-          </div>
-          <div class="r_b">
-            <span class="l_video">上传时间：2020.5.19</span>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
-
 <script>
+import {
+  showAlertBox
+} from '../utils/common'
+export default {
+  data(){
+    return {
+      videoList: []
+    }
+  },
+  created(){
+    this.videoList = [
+        {id: 0, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 1},
+        {id: 1, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
+        {id: 2, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
+        {id: 3, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
+        {id: 4, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
+        {id: 5, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
+      ]
+  },
+  methods: {
+    handlerLookTestResult(item){
+      if(!item.status){
+        showAlertBox(
+          '没有您的评测结果<br>请返回首页观看并上传视频',
+          false,
+          '确定',
+          '',
+          () => {
+            this.$router.go(-1);
+          }
+        )
+        return;
+      }
+      this.$router.push({
+        path: `/testResult/${item.id}` 
+      })
+    },
+  }
+}
 </script>
 <style lang="scss" scoped>
   .video_list{

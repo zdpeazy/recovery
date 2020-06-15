@@ -15,14 +15,19 @@ Vue.use(VueRouter)
     component: () => import('@/views/TestList.vue')
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'Detail',
     component: () => import('@/views/Detail.vue')
   },
   {
-    path: '/result',
+    path: '/result/:id',
     name: 'Result',
     component: () => import('@/views/Result.vue')
+  },
+  {
+    path: '/testResult/:id',
+    name: 'TestResult',
+    component: () => import('@/views/TestResult.vue')
   }
 ]
 
