@@ -11,20 +11,28 @@
       肩部外展动作展示
     </div>
     <div class="code">
-      <div class="i_list">
-        <input type="number">
-        <input type="number">
-        <input type="number">
-        <input type="number">
+      <div class="i_list" @click="handlerClickInput">
+        <div 
+          v-for="(item, index) in codeNumber"
+          :key="item"
+          :class="inputValue.length <= index ? 'codeNumber' : 'codeNumber active'">
+          {{inputValue[index]}}
+        </div>
       </div>
       <div class="c_tip">
         请输入特权码
         <i></i>
       </div>
+      <input 
+        class="codeInput" 
+        ref="codeInput" 
+        type="number" 
+        v-model="inputValue" 
+        @input="handleOnInput()" />
     </div>
     <div class="uploadBtn">
       <span>上传评测视频</span>
-      <input class="uploadInput" accept="video/*" type="file" capture="camcorder" value="上传评测视频" @change.prevent="videoControl">
+      <input class="uploadInput" accept="video/*" type="file" value="上传评测视频" @change.prevent="videoControl">
     </div>
     
   </div>
@@ -63,8 +71,11 @@ export default {
           remainingTimeDisplay: false,
           fullscreenToggle: true  //全屏按钮
         }
-      }
+      },
+      inputValue: '',
+      codeNumber: [1, 2, 3, 4]
     }
+    
   },
   created () {
     this.id = this.$route.params.id;
@@ -76,6 +87,15 @@ export default {
     console.log(this.$route.params.id)
   },
   methods: {
+    // 获取code焦点
+    handlerClickInput(){
+      this.$refs.codeInput.focus();
+    },
+    // 监听input值修改
+    handleOnInput(){
+      let value = this.$refs.codeInput.value;
+      this.inputValue = value.length > 4 ? value.slice(0, 4) : value;
+    },
     // 监听input的上传事件
     videoControl(e){
       let files = e.target.files || e.dataTransfer.files;
@@ -142,10 +162,11 @@ export default {
     .code{
       width: 100%;
       padding: 0.5rem 0 1rem;
+      position: relative;
       .i_list{
         display: flex;
         justify-content: center;
-        input[type="number"]{
+        .codeNumber{
           width: 0.8rem;
           height: 0.6rem;
           outline: 0;
@@ -155,10 +176,23 @@ export default {
           text-align: center;
           font-weight: 700;
           font-size: 0.4rem;
+          border-radius: 0;
+          &.active{
+            border-color: #000;
+          }
           &:first-child{
             margin: 0;
           }
         }
+      }
+      .codeInput{
+        width: 0.01rem;
+        height: 0.01rem;
+        position: absolute;
+        top: 0;
+        left: -7.5rem;
+        outline: none;
+        border: 0;
       }
       .c_tip{
         width: 2.44rem;
