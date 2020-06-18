@@ -3,7 +3,7 @@
     <div class="video_list">
       <div class="item" v-for="item in videoList" :key="item.id" @click="handlerLookVideo(item.id)">
         <div class="left">
-          <img :src="item.src" alt="">
+          <img :src="item.imgSrc" alt="">
         </div>
         <div class="right">
           <div class="title">{{item.name}}</div>
@@ -27,14 +27,7 @@ export default {
     }
   },
   created(){
-    this.videoList = [
-        {id: 0, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示'},
-        {id: 1, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示'},
-        {id: 2, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示'},
-        {id: 3, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示'},
-        {id: 4, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示'},
-        {id: 5, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示'},
-      ]
+    this.videoList = this.videoDetaultList;
   },
   methods: {
     handlerLookVideo(id){
@@ -80,15 +73,15 @@ export default {
       .right{
         padding-left: 0.3rem;
         .title{
-          font-size: 0.32rem;
+          font-size: 0.28rem;
           color: #030303;
         }
         .r_b{
           .l_video{
             display: inline-block;
-            width: 1.8rem;
-            height: 0.54rem;
-            font-size: 0.28rem;
+            width: 1.6rem;
+            height: 0.5rem;
+            font-size: 0.24rem;
             color: #5BC5B3;
             border: 0.01rem solid #5BC5B3;
             border-radius: 0.06rem;

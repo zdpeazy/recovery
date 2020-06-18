@@ -8,7 +8,7 @@
       ></video-player>
     </div>
     <div class="desc">
-      肩部外展动作展示
+      {{videoTitle}}
     </div>
     <div class="code">
       <div class="i_list" @click="handlerClickInput">
@@ -40,9 +40,9 @@
 
 <script>
 import {
-  showLoading,
-  hideLoading,
-  showToast
+  // showLoading,
+  // hideLoading,
+  // showToast
   // showAlertBox
 } from '../utils/common'
 
@@ -60,7 +60,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [{
           type: "video/mp4",//这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
-          src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4' //url地址
+          src: '' //url地址
         }],
         poster: "", //你的封面地址
         // width: document.documentElement.clientWidth, //播放器宽度
@@ -73,7 +73,8 @@ export default {
         }
       },
       inputValue: '',
-      codeNumber: [1, 2, 3, 4]
+      codeNumber: [1, 2, 3, 4],
+      videoTitle: ''
     }
     
   },
@@ -81,10 +82,15 @@ export default {
     this.id = this.$route.params.id;
   },
   mounted () {
+    const currentVideo = this.videoDetaultList.find(item => {
+      return item.id == this.id;
+    })
+    this.playerOptions.poster = currentVideo.imgSrc;
+    this.playerOptions.sources[0].src = currentVideo.src;
+    this.videoTitle = currentVideo.name;
     // showLoading('上传中，请稍候');
     // showToast('上传成功')
     // showAlertBox('1111')
-    console.log(this.$route.params.id)
   },
   methods: {
     // 获取code焦点
@@ -103,16 +109,23 @@ export default {
       this.uploadVideo(files[0]);
     },
     // 上传视频
-    uploadVideo(file){
-      showLoading('上传中，请稍候');
+    async uploadVideo(file){
       console.log(file)
-      setTimeout(() => {
-        hideLoading();
-        showToast('上传成功');
-        this.$router.push({
-          path: `/result/${this.id}`
-        })
-      }, 1000)
+      let res = await this.$api.mUploadVideo({
+        token: '1111'
+      })
+      console.log(res)
+
+
+      // showLoading('上传中，请稍候');
+      // console.log(file)
+      // setTimeout(() => {
+      //   hideLoading();
+      //   showToast('上传成功');
+      //   this.$router.push({
+      //     path: `/result/${this.id}`
+      //   })
+      // }, 1000)
     }
   }
 }

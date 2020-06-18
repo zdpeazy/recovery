@@ -1,12 +1,7 @@
 import axios from 'axios'
 /* 静态配置常数 */
 let config = {
-  baseURL: `//.zhihuijiankang.com/open/`
-}
-if (location.href.indexOf('h5.d.zhihuijiankang') !== -1 || location.href.indexOf('localhost') !== -1) {
-  config = {
-    baseURL: `//.d.zhihuijiankang.com/open`,
-  }
+  baseURL: `http://wangxiao.urehab.cn/`
 }
 /* 日期格式化 */
 let dateFormat = (date, format) => {

@@ -1,10 +1,11 @@
 
 import { requestAPI } from '../utils/common'
 
-let text = (data) => {
-  return requestAPI('city/price/list', data)
+// 上传视频
+let mUploadVideo = (data) => {
+  return requestAPI('/bdc/user/pos/upload', data)
 }
 
-export {
-  text
+export default {
+  mUploadVideo
 }
