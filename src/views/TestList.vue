@@ -3,14 +3,14 @@
     <div class="video_list">
       <div class="item" v-for="item in videoList" :key="item.id" @click="handlerLookTestResult(item)">
         <div class="left">
-          <img :src="item.src" alt="">
+          <img :src="item.imgSrc" alt="">
         </div>
         <div class="right">
           <div class="title">
-            <span class="status">评估中</span>
+            <span class="status">{{item.title}}</span>
           </div>
           <div class="r_b">
-            <span class="l_video">上传时间：2020.5.19</span>
+            <span class="l_video">上传时间：{{item.updateTime || item.updateTime}}</span>
           </div>
         </div>
       </div>
@@ -19,40 +19,53 @@
 </template>
 <script>
 import {
-  showAlertBox
+  showAlertBox,
+  showToast
 } from '../utils/common'
+import axios from 'axios'
 export default {
   data(){
     return {
-      videoList: []
+      videoList: [],
+      oss_domain: ''
     }
   },
   created(){
-    this.videoList = [
-        {id: 0, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 1},
-        {id: 1, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
-        {id: 2, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
-        {id: 3, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
-        {id: 4, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
-        {id: 5, src: 'https://oimagea5.ydstatic.com/image?id=-5285314247220546696&product=adpublish&w=520&h=347', name: '肩部外展动作展示', status: 0},
-      ]
+    this.getResultVideo();
+    this.videoList = []
   },
   methods: {
+    async getResultVideo(){
+      let config = {
+        headers:{'Content-Type':'multipart/form-data'}
+      }; //添加请求头
+      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, config)
+      .then(response=>{
+        let res = response.data;
+        if(res.code != 0){
+          showToast(res.message)
+          return;
+        }
+        if(res.data.pos.length < 1){
+          showAlertBox(
+            '没有您的评测结果<br>请返回首页观看并上传视频',
+            false,
+            '确定',
+            '',
+            () => {
+              this.$router.go(-1);
+            }
+          )
+          return;
+        }
+        this.oss_domain = res.data.oss_domain;
+        this.videoList = res.data.pos;
+      })
+
+    },
     handlerLookTestResult(item){
-      if(!item.status){
-        showAlertBox(
-          '没有您的评测结果<br>请返回首页观看并上传视频',
-          false,
-          '确定',
-          '',
-          () => {
-            this.$router.go(-1);
-          }
-        )
-        return;
-      }
       this.$router.push({
-        path: `/testResult/${item.id}` 
+        path: `/testResult/${item.id}?resultVideo=${item.resultVideo}` 
       })
     },
   }

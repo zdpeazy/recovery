@@ -1,7 +1,7 @@
 import axios from 'axios'
 /* 静态配置常数 */
 let config = {
-  baseURL: `http://wangxiao.urehab.cn/`
+  baseURL: `http://m.urehab.cn/`
 }
 /* 日期格式化 */
 let dateFormat = (date, format) => {
@@ -87,7 +87,15 @@ let hideAlertBox = function () {
   document.getElementById('alert-box').style.display = 'none'
 }
 
-axios.defaults.baseURL = config.baseURL // 设置接口域名
+axios.defaults.baseURL = config.baseURL; // 设置接口域名
+axios.defaults.headers['Content-Type'] = 'multipart/form-data';
+// axios.defaults.transformRequest = [function (data) {
+//   let ret = ''
+//   for (let it in data) {
+//     ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+//   }
+//   return ret
+// }]
 
 let requestAPI = async (url, param, method = 'GET') => {
   showLoading()
@@ -96,7 +104,7 @@ let requestAPI = async (url, param, method = 'GET') => {
   try {
     let datas = await axios({
       url: url,
-      params: param,
+      data: param,
       method: method
     })
     hideLoading()

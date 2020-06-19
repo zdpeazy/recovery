@@ -20,6 +20,12 @@
 </template>
 
 <script>
+import {
+  showToast,
+  showAlertBox
+} from '../utils/common'
+import axios from 'axios'
+
 export default {
   data(){
     return {
@@ -37,7 +43,30 @@ export default {
     },
     handlerLookTest(){
       this.$router.push({
-        path: '/testList'
+          path: '/testList'
+        })
+        return;
+      let config = {
+        headers:{'Content-Type':'multipart/form-data'}
+      };
+      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, config)
+      .then(response=>{
+        let res = response.data;
+        if(res.code != 0){
+          showToast(res.message)
+          return;
+        }
+        if(res.data.pos.length < 1){
+          showAlertBox(
+            '没有您的评测结果<br>请您观看并上传视频',
+            false,
+            '确定',
+          )
+          return;
+        }
+        this.$router.push({
+          path: '/testList'
+        })
       })
     }
   }

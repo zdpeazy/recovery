@@ -14,6 +14,11 @@ Object.defineProperties(Vue.prototype, {
     get() {
       return actions
     }
+  },
+  $token: {
+    get(){
+      return 'tk_11786d65eff55f7651ab7cd0ddabf912';
+    }
   }
 })
 

@@ -26,7 +26,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [{
           type: "video/mp4",//这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
-          src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4' //url地址
+          src: '' //url地址
         }],
         poster: "", //你的封面地址
         // width: document.documentElement.clientWidth, //播放器宽度
@@ -39,6 +39,12 @@ export default {
         }
       }
     }
+  },
+  created () {
+    this.id = this.$route.params.id;
+  },
+  mounted () {
+    this.playerOptions.sources[0].src = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${this.$route.query.orgVideo}`;
   },
   methods: {
     handlerBackHome(){

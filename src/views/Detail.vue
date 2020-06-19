@@ -40,11 +40,12 @@
 
 <script>
 import {
-  // showLoading,
-  // hideLoading,
-  // showToast
+  showLoading,
+  hideLoading,
+  showToast
   // showAlertBox
 } from '../utils/common'
+import axios from 'axios'
 
 export default {
   data(){
@@ -88,9 +89,6 @@ export default {
     this.playerOptions.poster = currentVideo.imgSrc;
     this.playerOptions.sources[0].src = currentVideo.src;
     this.videoTitle = currentVideo.name;
-    // showLoading('上传中，请稍候');
-    // showToast('上传成功')
-    // showAlertBox('1111')
   },
   methods: {
     // 获取code焦点
@@ -104,28 +102,37 @@ export default {
     },
     // 监听input的上传事件
     videoControl(e){
+      showLoading('上传中，请稍候');
       let files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.uploadVideo(files[0]);
     },
     // 上传视频
     async uploadVideo(file){
-      console.log(file)
-      let res = await this.$api.mUploadVideo({
-        token: '1111'
+      let param = new FormData(); //创建form对象
+      param.append('file',file);//通过append向form对象添加数据
+      let config = {
+        headers:{'Content-Type':'multipart/form-data'}
+      }; //添加请求头
+
+      let baseUrl = `${location.origin}/bdc/user/pos/upload?tk=${this.$token}&position=${this.id}`
+      if(this.inputValue.length > 0){
+        baseUrl = `${baseUrl}&code=${this.inputValue}`
+      }
+      axios.post(baseUrl, param, config)
+      .then(response=>{
+        let res = response.data;
+        hideLoading();
+        if(res.code != 0){
+          showToast(res.message);
+          return;
+        }
+        showToast('上传成功');
+        this.$router.push({
+          path: `/result/${this.id}?orgVideo=${res.data.pos.orgVideo}`
+        })
+        
       })
-      console.log(res)
-
-
-      // showLoading('上传中，请稍候');
-      // console.log(file)
-      // setTimeout(() => {
-      //   hideLoading();
-      //   showToast('上传成功');
-      //   this.$router.push({
-      //     path: `/result/${this.id}`
-      //   })
-      // }, 1000)
     }
   }
 }
