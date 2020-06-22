@@ -15,6 +15,7 @@ module.exports = {
       errors: false
     }
   },
+  publicPath: process.env.NODE_ENV === 'production' ? '/bdcm/' : '',
   pages: {
     index: {
       entry: 'src/main.js',
