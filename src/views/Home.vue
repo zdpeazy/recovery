@@ -75,7 +75,7 @@ export default {
 <style lang="scss" scoped>
   .video_list{
     width: 7.14rem;
-    height: 9.19rem;
+    height: 7.8rem;
     background: #fff;
     margin: 0 auto;
     border-radius: 0.06rem;

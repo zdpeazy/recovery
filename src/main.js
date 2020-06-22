@@ -7,21 +7,37 @@ import './static/reset.css'
 import 'video.js/dist/video-js.css';
 import 'vue-video-player/src/custom-theme.css';
 
-import actions from './utils/actions';
+// import actions from './utils/actions';
 
-Object.defineProperties(Vue.prototype, {
-  $api: {
-    get() {
-      return actions
-    }
-  },
-  $token: {
-    get(){
-      return 'tk_11786d65eff55f7651ab7cd0ddabf912';
-    }
+function getQueryVariable(variable){
+  var query = location.search.substring(1);
+  console.log(query)
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if(pair[0] == variable){return pair[1];}
   }
-})
+  return(false);
+}
 
+// Object.defineProperties(Vue.prototype, {
+//   $api: {
+//     get() {
+//       return actions
+//     }
+//   }
+// })
+console.log(localStorage.getItem('tk'))
+if(localStorage.getItem('tk')){
+  Vue.prototype.$token = localStorage.getItem('tk');
+} else {
+  const token = getQueryVariable('tk');
+  Vue.prototype.$token = token;
+  localStorage.setItem('tk', token);
+}
+
+
+console.log(Vue.$token)
 Vue.config.productionTip = false
 import imgSrc1 from './assets/1.png';
 import imgSrc2 from './assets/2.png';
@@ -69,7 +85,10 @@ Vue.prototype.videoDetaultList = [
 ]
 
 
-Vue.use(VideoPlayer)
+Vue.use(VideoPlayer);
+
+
+window.videoDetail = {};
 
 
 new Vue({

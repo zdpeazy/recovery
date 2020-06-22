@@ -3,7 +3,9 @@
     <div class="v_container">
       <video-player  class="video-player vjs-custom-skin"
         ref="videoPlayer" 
+        :x5-playsinline="true" 
         :playsinline="true" 
+        :webkit-playsinline="true" 
         :options="playerOptions"
       ></video-player>
     </div>
@@ -17,8 +19,13 @@
           <span class="border"></span>
         </div>
         <div class="right">
-          <div class="title">轻度受限</div>
-          <div class="desc">XX关节正常活动范围是0-YY度，您的XX关节活动范围是0-ZZ度，评估结果为轻度受限。</div>
+          <div class="title">{{result.title}}</div>
+          <div class="desc">
+            <span v-for="(item, index) in result.data" :key="index">
+              <span v-for="(key,value,index) in item" :key="index">您的{{value}}活动范围是{{key}}度，</span>
+            </span>
+            ，评估结果为{{result.title}}。
+          </div>
         </div>
       </div>
     </div>
@@ -29,9 +36,10 @@
 export default {
   data(){
     return {
+      result: {},
       playerOptions : {
         playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-        autoplay: false, //如果true,浏览器准备好时开始回放。
+        autoplay: true, //如果true,浏览器准备好时开始回放。
         muted: false, // 默认情况下将会消除任何音频。
         loop: false, // 导致视频一结束就重新开始。
         preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
@@ -56,13 +64,14 @@ export default {
   },
   created () {
     this.id = this.$route.params.id;
+    if(localStorage.getItem('videoDetail')){
+      this.result = JSON.parse(JSON.parse(localStorage.getItem('videoDetail')).result);
+    }
   },
   mounted () {
-    console.log(`https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${this.$route.query.resultVideo}`)
     this.playerOptions.sources[0].src = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${this.$route.query.resultVideo}`;
   },
   methods: {
-    
   }
 }
 </script>
