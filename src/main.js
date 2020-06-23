@@ -11,8 +11,8 @@ import 'vue-video-player/src/custom-theme.css';
 
 function getQueryVariable(variable){
   var query = location.search.substring(1);
-  console.log(query)
   var vars = query.split("&");
+  console.log(vars)
   for (var i=0;i<vars.length;i++) {
     var pair = vars[i].split("=");
     if(pair[0] == variable){return pair[1];}
@@ -27,17 +27,14 @@ function getQueryVariable(variable){
 //     }
 //   }
 // })
-console.log(localStorage.getItem('tk'))
-if(localStorage.getItem('tk')){
-  Vue.prototype.$token = localStorage.getItem('tk');
-} else {
-  const token = getQueryVariable('tk');
+const token = getQueryVariable('tk');
+if(token){
   Vue.prototype.$token = token;
   localStorage.setItem('tk', token);
+} else {
+  Vue.prototype.$token = localStorage.getItem('tk');
 }
 
-
-console.log(Vue.$token)
 Vue.config.productionTip = false
 import imgSrc1 from './assets/1.png';
 import imgSrc2 from './assets/2.png';

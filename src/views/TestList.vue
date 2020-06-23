@@ -38,12 +38,14 @@ export default {
     }
   },
   created(){
-    this.getResultVideo();
-    this.videoList = []
+    showLoading('加载中...');
+    setTimeout(() => {
+      this.getResultVideo();
+      this.videoList = []
+    }, 500)
   },
   methods: {
     async getResultVideo(){
-      showLoading('加载中...');
       let config = {
         headers:{'Content-Type':'multipart/form-data'}
       }; //添加请求头
@@ -75,7 +77,7 @@ export default {
     handlerLookTestResult(item){
       localStorage.setItem('videoDetail', JSON.stringify(item));
       this.$router.push({
-        path: `/testResult/${item.id}?resultVideo=${item.resultVideo}` 
+        path: `/testResult/${item.id}` 
       })
     },
   },
@@ -83,9 +85,13 @@ export default {
     playerOptions: function(){
       var _t = this;
       return item => {
+        let sourcesVideo = `${_t.oss_domain}${item.resultVideo}`
+        if(+item.status == 1000 || +item.status == 2000){
+          sourcesVideo = `${_t.oss_domain}${item.orgVideo}`
+        }
         return {
           playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-          autoplay: true, //如果true,浏览器准备好时开始回放。
+          autoplay: false, //如果true,浏览器准备好时开始回放。
           muted: false, // 默认情况下将会消除任何音频。
           loop: false, // 导致视频一结束就重新开始。
           preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
@@ -94,7 +100,7 @@ export default {
           fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
           sources: [{
             type: "video/mp4",//这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
-            src: `${_t.oss_domain}${item.resultVideo}` //url地址
+            src: sourcesVideo //url地址
           }],
           poster: "", //你的封面地址
           // width: document.documentElement.clientWidth, //播放器宽度

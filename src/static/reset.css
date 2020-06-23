@@ -392,3 +392,7 @@ display: none;
 .show{
   display: block;
 }
+
+.v_container .vjs-custom-skin>.video-js .vjs-control-bar{
+  font-size: 10px !important;
+}

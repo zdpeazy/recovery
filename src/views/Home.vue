@@ -42,10 +42,6 @@ export default {
       })
     },
     handlerLookTest(){
-      this.$router.push({
-          path: '/testList'
-        })
-        return;
       let config = {
         headers:{'Content-Type':'multipart/form-data'}
       };
@@ -64,9 +60,11 @@ export default {
           )
           return;
         }
-        this.$router.push({
-          path: '/testList'
-        })
+        setTimeout(() => {
+          this.$router.push({
+            path: '/testList'
+          })
+        }, 500)
       })
     }
   }

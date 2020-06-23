@@ -24,7 +24,7 @@
             <span v-for="(item, index) in result.data" :key="index">
               <span v-for="(key,value,index) in item" :key="index">您的{{value}}活动范围是{{key}}度，</span>
             </span>
-            ，评估结果为{{result.title}}。
+            评估结果为{{result.title}}。
           </div>
         </div>
       </div>
@@ -36,6 +36,7 @@
 export default {
   data(){
     return {
+      item: {},
       result: {},
       playerOptions : {
         playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
@@ -65,11 +66,24 @@ export default {
   created () {
     this.id = this.$route.params.id;
     if(localStorage.getItem('videoDetail')){
-      this.result = JSON.parse(JSON.parse(localStorage.getItem('videoDetail')).result);
+      this.item = JSON.parse(localStorage.getItem('videoDetail'));
     }
   },
   mounted () {
-    this.playerOptions.sources[0].src = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${this.$route.query.resultVideo}`;
+    let item = this.item;
+    let sourcesVideo = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${item.resultVideo}`
+    if(+item.status == 1000 || +item.status == 2000){
+      sourcesVideo = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${item.orgVideo}`
+      if(!item.result){
+        this.result = {
+          title: '评估中',
+          data: {}
+        }
+      } else {
+        this.result = JSON.parse(item.result)
+      }
+    }
+    this.playerOptions.sources[0].src = sourcesVideo;
   },
   methods: {
   }
@@ -85,6 +99,7 @@ export default {
     box-sizing: border-box;
     padding: 0.3rem;
     position: relative;
+    
     .v_container{
       width: 100%;
       height: auto;
