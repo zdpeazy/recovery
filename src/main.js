@@ -35,6 +35,8 @@ if(token){
   Vue.prototype.$token = localStorage.getItem('tk');
 }
 
+Vue.prototype.$getTkUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2ca4c583f27f13c6&response_type=code&scope=snsapi_base&state=STATE&redirect_uri=https%3a%2f%2fm.urehab.cn%2fbdc%2fuser%2flogin&_=bbbb'
+
 Vue.config.productionTip = false
 import imgSrc1 from './assets/1.png';
 import imgSrc2 from './assets/2.png';

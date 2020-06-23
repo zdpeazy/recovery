@@ -20,11 +20,12 @@
         </div>
         <div class="right">
           <div class="title">{{result.title}}</div>
-          <div class="desc">
-            <span v-for="(item, index) in result.data" :key="index">
-              <span v-for="(key,value,index) in item" :key="index">您的{{value}}活动范围是{{key}}度，</span>
-            </span>
-            评估结果为{{result.title}}。
+          <div class="desc" v-if="result.data">
+            <span v-for="(key,value,index) in result.data" :key="index">您的{{value}}活动范围是{{key}}度，</span>
+            评估结果为{{result.title}}
+          </div>
+          <div class="desc" v-else>
+            评估结果处理中
           </div>
         </div>
       </div>
@@ -68,19 +69,21 @@ export default {
     if(localStorage.getItem('videoDetail')){
       this.item = JSON.parse(localStorage.getItem('videoDetail'));
     }
+    this.oss_domain = 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/';
   },
   mounted () {
     let item = this.item;
-    let sourcesVideo = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${item.resultVideo}`
-    if(+item.status == 1000 || +item.status == 2000){
-      sourcesVideo = `https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/${item.orgVideo}`
-      if(!item.result){
-        this.result = {
-          title: '评估中',
-          data: {}
-        }
-      } else {
-        this.result = JSON.parse(item.result)
+    let sourcesVideo = `${this.oss_domain}${item.orgVideo}`
+    if(+item.status == 3000 ){
+      if(item.resultVideo){
+        sourcesVideo = `${this.oss_domain}${item.resultVideo}`
+      };
+      let result = JSON.parse(item.result);
+      this.result = result;
+    } else {
+      this.result = {
+        title: +item.status == 1000 ? '已创建' : '评估中',
+        data: ''
       }
     }
     this.playerOptions.sources[0].src = sourcesVideo;
@@ -137,11 +140,11 @@ export default {
         .right{
           flex: 1;
           .title{
-            font-size: 0.36rem;
+            font-size: 0.34rem;
             color: #030303;
           }
           .desc{
-            padding-top: 0.15rem;
+            padding-top: 0.2rem;
             line-height: 0.3rem;
             font-size: 0.26rem;
             color: #030303;

@@ -5,7 +5,9 @@
         <div class="left">
           <video-player  class="video-player vjs-custom-skin"
             ref="videoPlayer" 
+            :x5-playsinline="true" 
             :playsinline="true" 
+            :webkit-playsinline="true" 
             :options="playerOptions(item)"
           ></video-player>
           <div class="layer"></div>
@@ -53,6 +55,10 @@ export default {
       .then(response=>{
         let res = response.data;
         if(res.code != 0){
+          if(res.code == 2003){
+            window.location.replace(this.$getTkUrl);
+            return;
+          }
           showToast(res.message)
           return;
         }
@@ -85,9 +91,11 @@ export default {
     playerOptions: function(){
       var _t = this;
       return item => {
-        let sourcesVideo = `${_t.oss_domain}${item.resultVideo}`
-        if(+item.status == 1000 || +item.status == 2000){
-          sourcesVideo = `${_t.oss_domain}${item.orgVideo}`
+        let sourcesVideo = `${_t.oss_domain}${item.orgVideo}`
+        if(+item.status == 3000 ){
+          if(item.resultVideo){
+            sourcesVideo = `${_t.oss_domain}${item.resultVideo}`
+          };
         }
         return {
           playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
@@ -159,8 +167,8 @@ export default {
         width: 2.78rem;
         height: 1.58rem;
         position: relative;
-        img{
-          width: 100%;
+        text-align: center;
+        video{
           height: 100%;
         }
         .layer{
@@ -173,6 +181,7 @@ export default {
         }
       }
       .right{
+        flex: 1;
         padding-left: 0.3rem;
         .title{
           font-size: 0.32rem;
@@ -181,6 +190,7 @@ export default {
             color: #D50032;
           }
           span{
+            display: inline-block;
             padding-right: 0.4rem;
             position: relative;
             &:after{

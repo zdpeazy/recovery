@@ -49,13 +49,17 @@ export default {
       .then(response=>{
         let res = response.data;
         if(res.code != 0){
+          if(res.code == 2003){
+            window.location.replace(this.$getTkUrl);
+            return;
+          }
           showToast(res.message)
           return;
         }
         if(res.data.pos.length < 1){
           showAlertBox(
             '没有您的评测结果<br>请您观看并上传视频',
-            false,
+            false,  
             '确定',
           )
           return;

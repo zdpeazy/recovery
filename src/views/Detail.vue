@@ -124,6 +124,10 @@ export default {
         let res = response.data;
         hideLoading();
         if(res.code != 0){
+          if(res.code == 2003){
+            window.location.replace(this.$getTkUrl);
+            return;
+          }
           showToast(res.message);
           return;
         }
