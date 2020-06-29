@@ -1,7 +1,9 @@
 <template>
   <div class="p_content">
     <div class="v_container">
-      <video-player  class="video-player vjs-custom-skin"
+      <video-player
+        v-if="this.playerOptions.sources[0].src"
+        class="video-player vjs-custom-skin"
         ref="videoPlayer" 
         :x5-playsinline="true" 
         :playsinline="true" 
@@ -34,9 +36,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {
+  showLoading,
+  hideLoading,
+  showToast
+} from '../utils/common';
+
 export default {
   data(){
     return {
+      timer: null,
       item: {},
       result: {},
       playerOptions : {
@@ -66,29 +76,59 @@ export default {
   },
   created () {
     this.id = this.$route.params.id;
-    if(localStorage.getItem('videoDetail')){
-      this.item = JSON.parse(localStorage.getItem('videoDetail'));
-    }
-    this.oss_domain = 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/';
   },
   mounted () {
-    let item = this.item;
-    let sourcesVideo = `${this.oss_domain}${item.orgVideo}`
-    if(+item.status == 3000 ){
-      if(item.resultVideo){
-        sourcesVideo = `${this.oss_domain}${item.resultVideo}`
-      };
-      let result = JSON.parse(item.result);
-      this.result = result;
-    } else {
-      this.result = {
-        title: +item.status == 1000 ? '已创建' : '评估中',
-        data: ''
-      }
-    }
-    this.playerOptions.sources[0].src = sourcesVideo;
+    showLoading('加载中...');
+    this.getResultVideo(this.id, true);
+  },
+   // 最后在beforeDestroy()生命周期内清除定时器：
+  beforeDestroy() {
+    clearInterval(this.timer);        
+    this.timer = null;
   },
   methods: {
+    getResultVideo(id, isFirst){
+      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, {
+        headers:{'Content-Type':'multipart/form-data'}
+      })
+      .then(response=>{
+        let res = response.data;
+        if(res.code != 0){
+          if(res.code == 2003){
+            window.location.replace(this.$getTkUrl);
+            return;
+          }
+          showToast(res.message)
+          return;
+        }
+
+        const videoList = res.data.pos,
+          oss_domain = res.data.oss_domain;
+        const item = videoList.find(i => {
+          return i.id == id;
+        });
+        let sourcesVideo = `${oss_domain}${item.orgVideo}`
+        if(+item.status == 3000 ){
+          if(item.resultVideo){
+            sourcesVideo = `${oss_domain}${item.resultVideo}`
+          };
+          let result = JSON.parse(item.result);
+          this.result = result;
+        } else {
+          this.result = {
+            title: +item.status == 1000 ? '已创建' : '评估中',
+            data: ''
+          }
+        }
+        
+        this.playerOptions.sources[0].src = sourcesVideo;
+        isFirst ? hideLoading() : '';
+        this.timer = setTimeout(() => {
+          this.getResultVideo(id, false);
+        }, 5000)
+      })
+
+    }
   }
 }
 </script>
