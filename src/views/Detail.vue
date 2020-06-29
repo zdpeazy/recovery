@@ -32,7 +32,7 @@
     </div>
     <div class="uploadBtn">
       <span>上传评测视频</span>
-      <input class="uploadInput" accept="video/*" type="file" value="上传评测视频" @change.prevent="videoControl">
+      <input class="uploadInput" name="upload" accept="video/*" type="file" value="上传评测视频" @change.prevent="videoControl">
     </div>
     
   </div>

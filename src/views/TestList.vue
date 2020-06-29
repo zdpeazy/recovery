@@ -46,10 +46,9 @@ export default {
   },
   methods: {
     async getResultVideo(){
-      let config = {
+      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, {
         headers:{'Content-Type':'multipart/form-data'}
-      }; //添加请求头
-      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, config)
+      })
       .then(response=>{
         let res = response.data;
         if(res.code != 0){
@@ -60,18 +59,6 @@ export default {
           showToast(res.message)
           return;
         }
-        if(res.data.pos.length < 1){
-          showAlertBox(
-            '没有您的评测结果<br>请返回首页观看并上传视频',
-            false,
-            '确定',
-            '',
-            () => {
-              this.$router.go(-1);
-            }
-          )
-          return;
-        }
         this.oss_domain = res.data.oss_domain;
         this.videoList = res.data.pos;
         hideLoading();
@@ -79,7 +66,7 @@ export default {
 
     },
     handlerLookTestResult(item){
-      localStorage.setItem('videoDetail', JSON.stringify(item));
+      // localStorage.setItem('videoDetail', JSON.stringify(item));
       this.$router.push({
         path: `/testResult/${item.id}` 
       })
