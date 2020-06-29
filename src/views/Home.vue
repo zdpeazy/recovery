@@ -42,34 +42,32 @@ export default {
       })
     },
     handlerLookTest(){
-      let config = {
-        headers:{'Content-Type':'multipart/form-data'}
-      };
-      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, config)
-      .then(response=>{
-        let res = response.data;
-        if(res.code != 0){
-          if(res.code == 2003){
-            window.location.replace(this.$getTkUrl);
-            return;
-          }
-          showToast(res.message)
-          return;
-        }
-        if(res.data.pos.length < 1){
-          showAlertBox(
-            '没有您的评测结果<br>请您观看并上传视频',
-            false,  
-            '确定',
-          )
-          return;
-        }
-        setTimeout(() => {
-          this.$router.push({
-            path: '/testList'
-          })
-        }, 500)
+      this.$router.push({
+        path: '/testList'
       })
+      // let config = {
+      //   headers:{'Content-Type':'multipart/form-data'}
+      // };
+      // axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, config)
+      // .then(response=>{
+      //   let res = response.data;
+      //   if(res.code != 0){
+      //     if(res.code == 2003){
+      //       window.location.replace(this.$getTkUrl);
+      //       return;
+      //     }
+      //     showToast(res.message)
+      //     return;
+      //   }
+      //   if(res.data.pos.length < 1){
+      //     showAlertBox(
+      //       '没有您的评测结果<br>请您观看并上传视频',
+      //       false,  
+      //       '确定',
+      //     )
+      //     return;
+      //   }
+      // })
     }
   }
 }

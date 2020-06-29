@@ -132,9 +132,14 @@ export default {
           return;
         }
         showToast('上传成功');
-        this.$router.push({
-          path: `/result/${this.id}?orgVideo=${res.data.pos.orgVideo}`
-        })
+        setTimeout(() => {
+          this.$router.replace({
+            path: '/testList'
+          })
+        }, 200)
+        // this.$router.push({
+        //   path: `/result/${this.id}?orgVideo=${res.data.pos.orgVideo}`
+        // })
         
       })
     }

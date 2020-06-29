@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import VideoPlayer from 'vue-video-player'
+import axios from 'axios'
 
 import './static/reset.css'
 import 'video.js/dist/video-js.css';
@@ -88,6 +89,44 @@ Vue.use(VideoPlayer);
 
 
 window.videoDetail = {};
+
+const sharData = {
+  title: 'ROM智能评测',
+  desc: '上传视频，即刻获得专业关节活动度评估报告',
+  link: location.origin + '/bdc',
+  imgUrl: ''
+}
+
+try {
+  let config = {
+    headers:{'Content-Type':'multipart/form-data'}
+  }; 
+  axios.get(`${location.origin}/bdc/user/pos`, {}, config)
+  .then(response=>{
+    let res = response.data;
+    if(res.code != 0){
+      console.log('获取微信配置失败');
+      return;
+    }
+    // 分享
+    wx.config({
+      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+      appId: '', // 必填，公众号的唯一标识
+      timestamp: '', // 必填，生成签名的时间戳
+      nonceStr: '', // 必填，生成签名的随机串
+      signature: '', // 必填，签名
+      jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData', 'onMenuShareWeibo']
+    });
+  
+    wx.ready(function(){
+      wx.updateAppMessageShareData(sharData);
+      wx.updateTimelineShareData(sharData);
+      wx.onMenuShareWeibo(sharData);
+    });
+  })
+} catch(err) {
+  console.log(err)
+}
 
 
 new Vue({

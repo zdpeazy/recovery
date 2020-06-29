@@ -41,10 +41,8 @@ export default {
   },
   created(){
     showLoading('加载中...');
-    setTimeout(() => {
-      this.getResultVideo();
-      this.videoList = []
-    }, 500)
+    this.getResultVideo();
+    this.videoList = []
   },
   methods: {
     async getResultVideo(){
