@@ -73,6 +73,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  
   .video_list{
     width: 7.14rem;
     height: 7.8rem;
@@ -86,8 +87,7 @@ export default {
       background: #fff;
       box-sizing: border-box;
       padding: 0.3rem;
-      margin-top: 0.12rem;
-      border-bottom: 0.12rem solid #E8E8E8;
+      border-bottom: 0.12rem solid #F6F6F6;
       &:last-child{
         border: none;
       }
@@ -127,5 +127,10 @@ export default {
     color: #FFFFFF;
     text-align: center;
     text-decoration: underline;
+  }
+  @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    .video_list {
+      height: 10rem;
+    }
   }
 </style>

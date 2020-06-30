@@ -116,7 +116,7 @@ export default {
           this.result = result;
         } else {
           this.result = {
-            title: +item.status == 1000 ? '已创建' : '评估中',
+            title: +item.status == 1000 ? '待评测' : '评估中',
             data: ''
           }
         }

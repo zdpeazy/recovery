@@ -10,7 +10,7 @@
     <div class="desc">
       {{videoTitle}}
     </div>
-    <div class="code">
+    <div class="code" v-if="limit">
       <div class="i_list" @click="handlerClickInput">
         <div 
           v-for="(item, index) in codeNumber"
@@ -32,7 +32,7 @@
     </div>
     <div class="uploadBtn">
       <span>上传评测视频</span>
-      <input class="uploadInput" name="upload" accept="video/*" type="file" value="上传评测视频" @change.prevent="videoControl">
+      <input ref="uploadInput" class="uploadInput" accept="video/*" type="file" value="上传评测视频" @change.prevent="videoControl">
     </div>
     
   </div>
@@ -75,7 +75,8 @@ export default {
       },
       inputValue: '',
       codeNumber: [1, 2, 3, 4],
-      videoTitle: ''
+      videoTitle: '',
+      limit: false
     }
     
   },
@@ -89,8 +90,37 @@ export default {
     this.playerOptions.poster = currentVideo.imgSrc;
     this.playerOptions.sources[0].src = currentVideo.src;
     this.videoTitle = currentVideo.name;
+    this.getResultVideo();
   },
   methods: {
+    // 获取当前位置的上传项
+    getResultVideo(){
+      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, {
+        headers:{'Content-Type':'multipart/form-data'}
+      })
+      .then(response=>{
+        let res = response.data;
+        if(res.code != 0){
+          if(res.code == 2003){
+            window.location.replace(this.$getTkUrl);
+            return;
+          }
+          showToast(res.message)
+          return;
+        }
+        let postionVideoList = res.data.pos.filter(item => {
+          return item.pos == this.id;
+        })
+        if(postionVideoList.length >= 2){
+          let prevDate = postionVideoList[1].createTime;
+          let prevTime = new Date(prevDate.replace('/-/g', '/')).getTime();
+          if(Date.parse(new Date()) - prevTime < 10 * 60 * 60 * 1000){
+            this.limit = true;
+          }
+        }
+      })
+
+    },
     // 获取code焦点
     handlerClickInput(){
       this.$refs.codeInput.focus();
@@ -102,9 +132,21 @@ export default {
     },
     // 监听input的上传事件
     videoControl(e){
-      showLoading('上传中，请稍候');
       let files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
+      if (!files.length) {
+        this.$refs.uploadInput.value = '';
+        return;
+      };
+      if(this.limit){
+        if(this.inputValue.length > 0 && this.inputValue.length < 4){
+          showToast('请输入正确的特权码');
+        } else {
+          showToast('请输入特权码');
+        }
+        this.$refs.uploadInput.value = '';
+        return
+      }
+      showLoading('上传中，请稍候');
       this.uploadVideo(files[0]);
     },
     // 上传视频
@@ -137,16 +179,18 @@ export default {
             path: '/testList'
           })
         }, 200)
-        // this.$router.push({
-        //   path: `/result/${this.id}?orgVideo=${res.data.pos.orgVideo}`
-        // })
-        
       })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+  .no-click{ 
+    pointer-events:none;
+    .codeNumber{
+      background: #cdcdcd;
+    }
+  }
   .p_content{
     width: 7.14rem;
     min-height: 8.63rem;
@@ -176,9 +220,8 @@ export default {
       font-size: 0.32rem;
       color: #FFFFFF;
       position: absolute;
-      bottom: 0.3rem;
+      bottom: 0.5rem;
       left: 5%;
-      position: relative;
       .uploadInput{
         width: 100%;
         height: 100%;

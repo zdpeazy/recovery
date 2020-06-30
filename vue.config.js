@@ -21,7 +21,7 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html', 
-      title: '体态测试'
+      title: 'ROM智能评测'
     }
   },
 };

@@ -92,22 +92,25 @@ const sharData = {
 }
 
 try {
-  axios.get(`${location.origin}/bdc/user/pos`, {}, {
+  axios.get(`${location.origin}/bdc/user/wx_config?tk=${token}&url=${encodeURIComponent(location.href.split('#')[0])}&timestamp=${Date.parse(new Date())}`, {}, {
     headers:{'Content-Type':'multipart/form-data'}
   })
   .then(response=>{
     let res = response.data;
     if(res.code != 0){
+      if(res.code == 2003){
+        location.replace(Vue.prototype.$getTkUrl)
+        return;
+      }
       console.log('获取微信配置失败');
       return;
     }
     // 分享
     wx.config({
-      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-      appId: '', // 必填，公众号的唯一标识
-      timestamp: '', // 必填，生成签名的时间戳
-      nonceStr: '', // 必填，生成签名的随机串
-      signature: '', // 必填，签名
+      appId: res.data.config.appid, // 必填，公众号的唯一标识
+      timestamp: res.data.config.timestamp, // 必填，生成签名的时间戳
+      nonceStr: res.data.config.nonceStr, // 必填，生成签名的随机串
+      signature: res.data.config.signature,// 必填，签名
       jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData', 'onMenuShareWeibo']
     });
   

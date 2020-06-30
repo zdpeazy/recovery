@@ -110,7 +110,7 @@ export default {
     MathStatus: () => {
       return item => {
         let status = {
-          title: '已创建',
+          title: '待评测',
           className: 'status'
         }
         switch(+item.status){
@@ -119,7 +119,7 @@ export default {
             status.className = 'status active';
           break;
           case 3000:
-            status.title = !JSON.parse(item.result).title ? '处理完成' : JSON.parse(item.result).title;
+            status.title = !JSON.parse(item.result).title ? '评估完成' : JSON.parse(item.result).title;
           break;
           default:
           break;
@@ -143,8 +143,7 @@ export default {
       background: #fff;
       box-sizing: border-box;
       padding: 0.3rem;
-      margin-top: 0.12rem;
-      border-bottom: 0.12rem solid #E8E8E8;
+      border-bottom: 0.12rem solid #F6F6F6;
       &:last-child{
         border: none;
       }
