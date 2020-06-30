@@ -110,7 +110,7 @@ export default {
     MathStatus: () => {
       return item => {
         let status = {
-          title: '待评测',
+          title: '待评估',
           className: 'status'
         }
         switch(+item.status){
