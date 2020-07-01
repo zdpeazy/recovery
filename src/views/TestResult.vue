@@ -11,6 +11,9 @@
         :options="playerOptions"
       ></video-player>
     </div>
+    <div class="desc">
+      {{pos_title}}
+    </div>
     <div class="testDetail">
       <div class="title">
         <span class="border"></span>
@@ -49,6 +52,7 @@ export default {
       timer: null,
       item: {},
       result: {},
+      pos_title: '',
       playerOptions : {
         playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
         autoplay: true, //如果true,浏览器准备好时开始回放。
@@ -120,7 +124,7 @@ export default {
             data: ''
           }
         }
-        
+        this.pos_title = this.videoDetaultList[item.pos].name
         this.playerOptions.sources[0].src = sourcesVideo;
         isFirst ? hideLoading() : '';
         this.timer = setTimeout(() => {
@@ -147,6 +151,11 @@ export default {
       width: 100%;
       height: auto;
       margin: 0 auto;
+    }
+    .desc{
+      padding-top: 0.2rem;
+      font-size: 0.32rem;
+      color: #030303;
     }
     .testDetail{
       .title{

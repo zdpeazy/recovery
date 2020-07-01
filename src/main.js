@@ -87,7 +87,7 @@ window.videoDetail = {};
 const sharData = {
   title: 'ROM智能评测',
   desc: '上传视频，即刻获得专业关节活动度评估报告',
-  link: location.origin + '/bdc',
+  link: 'https://m.urehab.cn/bdc',
   imgUrl: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/logo.png'
 }
 
@@ -107,6 +107,7 @@ try {
     }
     // 分享
     wx.config({
+      debug: true, 
       appId: res.data.config.appid, // 必填，公众号的唯一标识
       timestamp: res.data.config.timestamp, // 必填，生成签名的时间戳
       nonceStr: res.data.config.nonceStr, // 必填，生成签名的随机串

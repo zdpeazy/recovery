@@ -13,6 +13,9 @@
           <div class="layer"></div>
         </div>
         <div class="right">
+          <div class="pos_title">
+            {{item.pos_title}}
+          </div>
           <div class="title">
             <span :class="MathStatus(item).className">{{MathStatus(item).title}}</span>
           </div>
@@ -60,6 +63,9 @@ export default {
           return;
         }
         this.oss_domain = res.data.oss_domain;
+        res.data.pos.map(item => {
+          item.pos_title = this.videoDetaultList[item.pos].name
+        })
         this.videoList = res.data.pos;
         hideLoading();
       })
@@ -111,7 +117,7 @@ export default {
       return item => {
         let status = {
           title: '待评估',
-          className: 'status'
+          className: 'status create'
         }
         switch(+item.status){
           case 2000:
@@ -120,6 +126,7 @@ export default {
           break;
           case 3000:
             status.title = !JSON.parse(item.result).title ? '评估完成' : JSON.parse(item.result).title;
+            status.className = 'status';
           break;
           default:
           break;
@@ -144,6 +151,7 @@ export default {
       box-sizing: border-box;
       padding: 0.3rem;
       border-bottom: 0.12rem solid #F6F6F6;
+      overflow: hidden;
       &:last-child{
         border: none;
       }
@@ -152,8 +160,9 @@ export default {
         height: 1.58rem;
         position: relative;
         text-align: center;
-        video{
-          height: 100%;
+        .video-player{
+          width: 2.78rem;
+          height: 1.58rem;
         }
         .layer{
           width: 100%;
@@ -166,12 +175,25 @@ export default {
       }
       .right{
         flex: 1;
+        box-sizing: border-box;
         padding-left: 0.3rem;
+        .pos_title{
+          width: 3.8rem;
+          font-size: 0.3rem;
+          color: #666;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
         .title{
-          font-size: 0.32rem;
-          color: #030303;
+          padding: 0.2rem 0 0.3rem;
+          font-size: 0.3rem;
+          color: #000;
           .active{
             color: #D50032;
+          }
+          .create{
+            color: #FF7458;
           }
           span{
             display: inline-block;
@@ -192,7 +214,6 @@ export default {
           }
         }
         .r_b{
-          padding-top: 0.28rem;
           font-size: 0;
           .l_video{
             font-size: 0.24rem;

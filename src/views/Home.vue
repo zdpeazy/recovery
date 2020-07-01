@@ -130,7 +130,7 @@ export default {
   }
   @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
     .video_list {
-      height: 10rem;
+      height: 8.5rem;
     }
   }
 </style>

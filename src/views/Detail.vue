@@ -113,7 +113,7 @@ export default {
         })
         if(postionVideoList.length >= 2){
           let prevDate = postionVideoList[1].createTime;
-          let prevTime = new Date(prevDate.replace('/-/g', '/')).getTime();
+          let prevTime = new Date(prevDate.replace(/-/g, '/')).getTime();
           if(Date.parse(new Date()) - prevTime < 10 * 60 * 60 * 1000){
             this.limit = true;
           }
