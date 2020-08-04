@@ -43,38 +43,74 @@ Vue.prototype.videoDetaultList = [
   {
     id: 0, 
     src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/3e0c522fa3e7488397d5912dfbec9305',
-    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/1.png', 
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/0.png', 
     name: '肩部外展'
   },
   {
     id: 1, 
     src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/acea2b65b359485c8815e013332b7b3f',
-    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/2.png', 
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/1.png', 
     name: '肘部屈伸'
   },
   {
     id: 2, 
     src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/4cac7d7529f24faabad3c34c15f86878',
-    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/3.png', 
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/2.png', 
     name: '侧卧髋外展肌力训练（右）'
   },
   {
     id: 3, 
     src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/e730b90c31474e0c8a3366fcd118efb9',
-    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/4.png', 
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/3.png', 
     name: '髋屈曲'
   },
   {
     id: 4, 
     src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/30b077f70c834cca9dfa6a3e1ff8e475',
-    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/5.png', 
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/4.png', 
     name: '俯卧屈膝'
   },
+  // {
+  //   id: 5, 
+  //   src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/f18ef3cbfd6648da8c4d424a3d649bc3',
+  //   imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/6.png', 
+  //   name: '坐姿踝背屈'
+  // },
   {
     id: 5, 
-    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/f18ef3cbfd6648da8c4d424a3d649bc3',
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/ef71dcb583ed43c88a214473f31d1a29',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/5.png', 
+    name: '立位肩后伸'
+  },
+  {
+    id: 6, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/db597e59cc324373a1a39c6fccba5fe7',
     imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/6.png', 
-    name: '坐姿踝背屈'
+    name: '立位肩内收'
+  },
+  {
+    id: 7, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/9478ca89ab764b129626d626e1b1da15',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/7.png', 
+    name: '立位肩前屈'
+  },
+  {
+    id: 8, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/b0928ba339914469bff73841f60ed981',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/8.png', 
+    name: '颈右侧屈'
+  },
+  {
+    id: 9, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/30916ef2fd4744e59278df739229635a',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/9.png', 
+    name: '颈左侧屈'
+  },
+  {
+    id: 10, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/1cbd300fda174bf5aa434c7a191f758f',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/10.png', 
+    name: '髋后伸'
   },
 ]
 
