@@ -140,8 +140,11 @@ export default {
       if(this.limit){
         if(this.inputValue.length > 0 && this.inputValue.length < 4){
           showToast('请输入正确的特权码');
-        } else {
+        } else if(this.inputValue.length == 0) {
           showToast('请输入特权码');
+        } else {
+          showLoading('上传中，请稍候');
+          this.uploadVideo(files[0]);
         }
         this.$refs.uploadInput.value = '';
         return
