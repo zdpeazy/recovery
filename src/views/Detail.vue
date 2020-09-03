@@ -178,9 +178,7 @@ export default {
         }
         showToast('上传成功');
         setTimeout(() => {
-          this.$router.replace({
-            path: '/testList'
-          })
+          this.$router.go(-1);
         }, 200)
       })
     }

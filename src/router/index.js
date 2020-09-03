@@ -10,7 +10,7 @@ Vue.use(VueRouter)
     component: () => import('@/views/Home.vue')
   },
   {
-    path: '/testList',
+    path: '/testList/:id',
     name: 'TestList',
     component: () => import('@/views/TestList.vue')
   },

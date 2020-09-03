@@ -1,7 +1,11 @@
 <template>
   <div class="p_content">
     <div class="video_list">
-      <div class="item" v-for="item in videoList" :key="item.id" @click="handlerLookTestResult(item)">
+      <div class="empty" v-if="videoList.length < 1">
+        <img :src="emptyIcon" alt="">
+        <div class="txt">暂无结果<br>请上传视频</div>
+      </div>
+      <div class="item" v-else v-for="item in videoList" :key="item.id" @click="handlerLookTestResult(item)">
         <div class="left">
           <video-player  class="video-player vjs-custom-skin"
             ref="videoPlayer" 
@@ -35,21 +39,25 @@ import {
   showToast
 } from '../utils/common'
 import axios from 'axios'
+import emptyIcon from '../assets/emoji_none.png';
+
 export default {
   data(){
     return {
       videoList: [],
-      oss_domain: ''
+      oss_domain: '',
+      emptyIcon: emptyIcon
     }
   },
   created(){
+    this.id = this.$route.params.id;
     showLoading('加载中...');
     this.getResultVideo();
     this.videoList = []
   },
   methods: {
     async getResultVideo(){
-      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}`, {}, {
+      axios.get(`${location.origin}/bdc/user/pos/get?tk=${this.$token}&pos=${this.id}`, {}, {
         headers:{'Content-Type':'multipart/form-data'}
       })
       .then(response=>{
@@ -144,6 +152,24 @@ export default {
     background: #fff;
     margin: 0 auto;
     border-radius: 0.06rem;
+    .empty{
+      width: 100%;
+      height:  9.19rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 0.8rem;
+        height: 0.78rem;
+      }
+      .txt{
+        padding-top: 0.3rem;
+        font-size: 0.3rem;
+        text-align: center;
+        line-height: 0.42rem;
+      }
+    }
     .item{
       display: flex;
       align-items: center;

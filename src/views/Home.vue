@@ -1,21 +1,22 @@
 <template>
   <div class="p_content">
     <div class="video_list">
-      <div class="item" v-for="item in videoList" :key="item.id" @click="handlerLookVideo(item.id)">
+      <div class="item" v-for="item in videoList" :key="item.id">
         <div class="left">
           <img :src="item.imgSrc" alt="">
         </div>
         <div class="right">
           <div class="title">{{item.name}}</div>
           <div class="r_b">
-            <span class="l_video">观看并上传</span>
+            <span class="l_video" @click="handlerLookVideo(item.id)">观看并上传</span>
+            <span class="look_result" @click="handlerLookTest(item.id)">查询测试</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="look_result" @click="handlerLookTest">
+    <!-- <div class="look_result" @click="handlerLookTest">
       <span>评测结果查询</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -41,9 +42,9 @@ export default {
         path: `/detail/${id}` 
       })
     },
-    handlerLookTest(){
+    handlerLookTest(id){
       this.$router.push({
-        path: '/testList'
+        path: `/testList/${id}`
       })
       // let config = {
       //   headers:{'Content-Type':'multipart/form-data'}
@@ -76,11 +77,10 @@ export default {
   
   .video_list{
     width: 7.14rem;
-    height: 7.8rem;
+    // height: 7.8rem;
     background: #fff;
     margin: 0 auto;
     border-radius: 0.06rem;
-    overflow-y: auto;
     .item{
       display: flex;
       align-items: center;
@@ -102,7 +102,7 @@ export default {
       .right{
         padding-left: 0.3rem;
         .title{
-          font-size: 0.28rem;
+          font-size: 0.26rem;
           color: #030303;
         }
         .r_b{
@@ -117,20 +117,23 @@ export default {
             text-align: center;
             line-height: 0.54rem;
           }
+          .look_result{
+            display: inline-block;
+            width: 1.6rem;
+            height: 0.5rem;
+            font-size: 0.24rem;
+            color: #FF6400;
+            border: 0.01rem solid #FF6400;
+            border-radius: 0.06rem;
+            text-align: center;
+            line-height: 0.54rem;
+            margin-left: 0.2rem;
+          }
         }
       }
     }
   }
-  .look_result{
-    padding-top: 0.28rem;
-    font-size: 0.32rem;
-    color: #FFFFFF;
-    text-align: center;
-    text-decoration: underline;
-  }
   @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
-    .video_list {
-      height: 8.5rem;
-    }
+    
   }
 </style>

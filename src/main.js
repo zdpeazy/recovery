@@ -112,6 +112,54 @@ Vue.prototype.videoDetaultList = [
     imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/10.png', 
     name: '髋后伸'
   },
+  {
+    id: 11, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/6faca86cbc924f38ba4a2f68af094aae',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/11.png', 
+    name: '（左）肩关节外展活动度测试'
+  },
+  {
+    id: 12, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/039aea4783d648eab859dce129159481',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/12.png', 
+    name: '（右）肘关节屈伸活动度测试'
+  },
+  {
+    id: 13, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/214f5674a8814bd5af8bda9dbf7d7e59',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/13.png', 
+    name: '（左）髋关节外展活动度测试'
+  },
+  {
+    id: 14, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/2af5134f9c4e4965a8934a8b9d436eae',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/14.png', 
+    name: '（左）髋关节屈曲活动度测试'
+  },
+  {
+    id: 15, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/539a518798a741daba5cb7b1254bf1a8',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/15.png', 
+    name: '（左）膝关节屈曲活动度测试'
+  },
+  {
+    id: 16, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/caf6b6cb566244a7a46446de71514568',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/16.png', 
+    name: '（左）肩关节后伸活动度测试'
+  },
+  {
+    id: 17, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/3f05d1343fb24494932642825a6b657f',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/17.png', 
+    name: '（左）肩关节内收活动度测试'
+  },
+  {
+    id: 18, 
+    src: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/example/mp4/fe182aa965244e41987e613a52ffff58',
+    imgSrc: 'https://huifuwangxiao.oss-cn-hangzhou.aliyuncs.com/static/img/18.png', 
+    name: '（左）肩关节前屈活动度测试'
+  }
 ]
 
 

@@ -13,6 +13,16 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: false
+    },
+    proxy: {
+      '/bdc': {
+        target: 'https://m.urehab.cn',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/bdc': ''
+        }
+      }
     }
   },
   publicPath: process.env.NODE_ENV === 'production' ? '/bdcm/' : '',
