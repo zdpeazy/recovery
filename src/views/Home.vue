@@ -112,10 +112,11 @@ export default {
             height: 0.5rem;
             font-size: 0.24rem;
             color: #5BC5B3;
-            border: 0.01rem solid #5BC5B3;
+            border: 1px solid #5BC5B3;
             border-radius: 0.06rem;
             text-align: center;
             line-height: 0.54rem;
+            box-sizing: border-box;
           }
           .look_result{
             display: inline-block;
@@ -123,7 +124,7 @@ export default {
             height: 0.5rem;
             font-size: 0.24rem;
             color: #FF6400;
-            border: 0.01rem solid #FF6400;
+            border: 1px solid #FF6400;
             border-radius: 0.06rem;
             text-align: center;
             line-height: 0.54rem;
