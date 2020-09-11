@@ -10,6 +10,12 @@
     <div class="desc">
       {{videoTitle}}
     </div>
+    <div class="note">
+      <div class="title">注意事项：</div>
+      <div class="note-item" v-for="item in notes" :key="item">
+        {{item}}
+      </div>
+    </div>
     <div class="code" v-if="limit">
       <div class="i_list" @click="handlerClickInput">
         <div 
@@ -76,6 +82,7 @@ export default {
       inputValue: '',
       codeNumber: [1, 2, 3, 4],
       videoTitle: '',
+      notes: [],
       limit: false
     }
     
@@ -90,6 +97,7 @@ export default {
     this.playerOptions.poster = currentVideo.imgSrc;
     this.playerOptions.sources[0].src = currentVideo.src;
     this.videoTitle = currentVideo.name;
+    this.notes = currentVideo.notes;
     this.getResultVideo();
   },
   methods: {
@@ -211,6 +219,18 @@ export default {
       font-size: 0.32rem;
       color: #030303;
     }
+    .note{
+      padding: 0 0.2rem;
+      font-size: 0.12rem;
+      line-height: 0.32rem;
+      color: #666;
+      .title{
+        padding-top: 0.2rem;
+      }
+      .note-item{
+        padding-top: 0.1rem;
+      }
+    }
     .uploadBtn{
       width: 90%;
       height: 0.9rem;
@@ -234,7 +254,7 @@ export default {
     }
     .code{
       width: 100%;
-      padding: 0.5rem 0 1rem;
+      padding: 0.3rem 0 1.5rem;
       position: relative;
       .i_list{
         display: flex;

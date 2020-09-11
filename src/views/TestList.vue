@@ -72,7 +72,9 @@ export default {
         }
         this.oss_domain = res.data.oss_domain;
         res.data.pos.map(item => {
-          item.pos_title = this.videoDetaultList[item.pos].name
+          item.pos_title = this.videoDetaultList.find(item2 => {
+            return  item2.id == item.pos;
+          }).name
         })
         this.videoList = res.data.pos;
         hideLoading();
