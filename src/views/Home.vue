@@ -14,6 +14,10 @@
         </div>
       </div>
     </div>
+    <div class="qrcode">
+      <img class="qrcode1" :src="qrcode1" alt="">
+      <img class="qrcode2" :src="qrcode2" alt="">
+    </div>
     <!-- <div class="look_result" @click="handlerLookTest">
       <span>评测结果查询</span>
     </div> -->
@@ -21,6 +25,8 @@
 </template>
 
 <script>
+import qrcode1 from '../assets/qrcode_01.png';
+import qrcode2 from '../assets/qrcode_02.png';
 import {
   showToast,
   showAlertBox
@@ -30,7 +36,9 @@ import axios from 'axios'
 export default {
   data(){
     return {
-      videoList: []
+      videoList: [],
+      qrcode1: qrcode1,
+      qrcode2: qrcode2
     }
   },
   created(){
@@ -132,6 +140,23 @@ export default {
           }
         }
       }
+    }
+  }
+  .qrcode{
+    width: 7.14rem;
+    height: 3.41rem;
+    margin: 0.2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    .qrcode1{
+      width: 2.78rem;
+      height: 2.77rem;
+    }
+    .qrcode2{
+      width: 2.78rem;
+      height: 2.77rem;
     }
   }
   @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {

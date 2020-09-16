@@ -2,9 +2,6 @@
   <div id="app">
     <div class="banner"></div>
     <router-view/>
-    <div class="qrcode">
-      <img :src="qrcode" alt="">
-    </div>
     <div class="copyright">
       <div class="com_name">版权所有：北京慧复科技有限公司</div>
       <div>咨询电话：<a href="tel:400-102-5882">400-102-5882</a></div>
@@ -12,13 +9,10 @@
   </div>
 </template>
 <script>
-import qrcode from './assets/qrcode.png';
 
 export default {
   data(){
-    return {
-      qrcode: qrcode
-    }
+    return {}
   }
 }
 </script>
@@ -43,19 +37,6 @@ html, body{
     height: 3rem;
     background: url('assets/banner.png') no-repeat;
     background-size: 100% 100%;
-  }
-  .qrcode{
-    width: 7.14rem;
-    height: 3.41rem;
-    margin: 0.2rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    img{
-      width: 5.56rem;
-      height: 2.27rem;
-    }
   }
   .copyright{
     color: #fff;
