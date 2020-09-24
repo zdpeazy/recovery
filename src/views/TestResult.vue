@@ -124,7 +124,9 @@ export default {
             data: ''
           }
         }
-        this.pos_title = this.videoDetaultList[item.pos].name
+        this.pos_title = this.videoDetaultList.find(i => {
+          return i.id == item.pos;
+        }).name;
         this.playerOptions.sources[0].src = sourcesVideo;
         isFirst ? hideLoading() : '';
         this.timer = setTimeout(() => {
